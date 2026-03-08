@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PrintLab — CAD & 3D Printing Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; font-weight:300; color:#2a2a2a; background:#fff; }
+
+nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,.96); backdrop-filter:blur(8px);
+  border-bottom:1px solid #e8f0f5; padding:0 48px;
+  display:flex; align-items:center; justify-content:space-between; height:60px;
+}
+.nav-brand { font-family:'Playfair Display',serif; font-size:1.2rem; color:#2a2a2a; }
+.nav-brand span { color:#3a7a9a; font-style:italic; }
+.nav-links { display:flex; gap:32px; }
+.nav-links a { font-size:.82rem; color:#888; text-decoration:none; }
+.nav-links a:hover { color:#2a2a2a; }
+.nav-cta { background:#2a2a2a; color:#fff; padding:8px 20px; font-size:.78rem; text-decoration:none; border-radius:40px; }
+
+/* HERO */
+.hero {
+  min-height:92vh;
+  background:linear-gradient(135deg, #f2f8fc 0%, #e5f0f8 50%, #d8e8f5 100%);
+  display:flex; align-items:center; padding:80px 48px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1400&q=60') center/cover;
+  opacity:.07;
+}
+.hero-inner { position:relative; max-width:1100px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.hero-tag { display:inline-block; font-size:.72rem; letter-spacing:3px; text-transform:uppercase; color:#3a7a9a; border:1px solid #b8d8e8; padding:6px 18px; border-radius:40px; margin-bottom:28px; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:3.6rem; font-weight:400; line-height:1.1; color:#2a2a2a; margin-bottom:20px; }
+.hero h1 em { font-style:italic; color:#3a7a9a; }
+.hero-desc { font-size:.95rem; line-height:1.8; color:#666; margin-bottom:32px; }
+.hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary { background:#2a2a2a; color:#fff; padding:14px 32px; border-radius:40px; text-decoration:none; font-size:.88rem; }
+.btn-ghost { background:transparent; color:#2a2a2a; padding:14px 32px; border-radius:40px; text-decoration:none; font-size:.88rem; border:1.5px solid #ccc; }
+
+.hero-stats { display:flex; gap:0; border:1px solid #c8e0f0; border-radius:12px; overflow:hidden; background:rgba(255,255,255,.7); }
+.stat { padding:24px 32px; border-right:1px solid #c8e0f0; flex:1; text-align:center; }
+.stat:last-child { border-right:none; }
+.stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:#2a2a2a; margin-bottom:4px; }
+.stat-label { font-size:.68rem; letter-spacing:2px; text-transform:uppercase; color:#aaa; }
+
+/* SECTIONS */
+section { padding:96px 48px; }
+.section-tag { display:inline-block; font-size:.68rem; letter-spacing:3px; text-transform:uppercase; color:#888; margin-bottom:14px; }
+.section-title { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:400; color:#2a2a2a; margin-bottom:16px; line-height:1.2; }
+.section-title em { font-style:italic; color:#3a7a9a; }
+.section-lead { font-size:.95rem; line-height:1.8; color:#666; max-width:560px; }
+
+/* ABOUT */
+.about { background:#f2f8fc; }
+.about-inner { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; max-width:1100px; margin:0 auto; }
+.about-image img { width:100%; border-radius:12px; display:block; }
+.about-image { position:relative; }
+.about-badge { position:absolute; bottom:-16px; right:-16px; background:#2a2a2a; color:#fff; font-size:.68rem; letter-spacing:2px; text-transform:uppercase; padding:12px 20px; border-radius:8px; }
+.about p { font-size:.92rem; line-height:1.85; color:#666; margin-bottom:14px; }
+.about strong { color:#2a2a2a; font-weight:500; }
+
+/* WORKFLOW */
+.workflow { background:#fff; }
+.wf-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:52px; border:1px solid #e8f0f8; border-radius:12px; overflow:hidden; }
+.wf-step { padding:28px; border-right:1px solid #e8f0f8; }
+.wf-step:last-child { border-right:none; }
+.wf-num { font-family:'Playfair Display',serif; font-size:2rem; color:#d0e8f5; margin-bottom:12px; }
+.wf-step h3 { font-family:'Playfair Display',serif; font-size:1.05rem; color:#2a2a2a; margin-bottom:8px; }
+.wf-step p { font-size:.82rem; line-height:1.65; color:#888; }
+
+/* PROJECTS */
+.projects { background:#f2f8fc; }
+.proj-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:52px; }
+.proj-card { background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e0ecf5; }
+.proj-thumb {
+  height:150px; display:flex; align-items:center; justify-content:center;
+  font-size:.7rem; letter-spacing:3px; text-transform:uppercase; color:#bbb;
+}
+.proj-body { padding:22px; }
+.proj-meta-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.proj-tag { font-size:.62rem; letter-spacing:2px; text-transform:uppercase; color:#3a7a9a; }
+.proj-status { font-size:.62rem; letter-spacing:1px; padding:3px 9px; border-radius:20px; }
+.proj-status.done { background:#e8f5e8; color:#3a7a3a; }
+.proj-status.wip { background:#fff8e8; color:#7a6a3a; }
+.proj-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:#2a2a2a; margin-bottom:6px; }
+.proj-desc { font-size:.8rem; line-height:1.65; color:#888; margin-bottom:12px; }
+.proj-specs { display:flex; gap:6px; flex-wrap:wrap; }
+.proj-spec { font-size:.62rem; letter-spacing:1px; padding:3px 10px; border:1px solid #e0ecf5; border-radius:20px; color:#aaa; }
+
+/* INDUSTRIAL */
+.industrial { background:#1a2a3a; padding:96px 48px; }
+.industrial .section-tag { color:#6a9aba; }
+.industrial .section-title { color:#e8f0f8; }
+.ind-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; max-width:1100px; margin:52px auto 0; align-items:center; }
+.ind-image img { width:100%; border-radius:12px; display:block; }
+.ind-points { }
+.ind-point { display:flex; gap:16px; margin-bottom:24px; }
+.ind-icon { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+.ind-point h4 { font-family:'Playfair Display',serif; font-size:1rem; color:#c8dde8; margin-bottom:5px; }
+.ind-point p { font-size:.84rem; line-height:1.65; color:#5a7a8a; }
+
+footer { background:#0d1a24; color:#3a5a6a; padding:32px 48px; text-align:center; font-size:.8rem; line-height:1.8; }
+footer strong { color:#5a7a8a; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Print<span>Lab</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#projects">Projects</a>
+    <a href="#industrial">Industrial</a>
+  </div>
+  <a href="#projects" class="nav-cta">View Projects →</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">CAD & 3D Print Documentation</div>
+      <h1>From concept<br/>to <em>printed part.</em></h1>
+      <p class="hero-desc">A JSON-powered documentation hub for CAD and 3D printing projects — logging every design, iteration, and lesson learned. Based on real industrial work at Ampoly Plastics, 2025.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">Browse Projects →</a>
+        <a href="#workflow" class="btn-ghost">See the Process</a>
+      </div>
+    </div>
+    <div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">14</div>
+          <div class="stat-label">Completed prints</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">In progress</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">PLA</div>
+          <div class="stat-label">Primary material</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=700&q=80" alt="3D Printing"/>
+      <div class="about-badge">Ampoly Plastics · 2025</div>
+    </div>
+    <div>
+      <div class="section-tag">About PrintLab</div>
+      <h2 class="section-title">Hardware meets <em>software.</em></h2>
+      <p>PrintLab is a documentation system built on a JSON data layer — a lightweight CMS concept that requires no backend, no database, and no server. Every project is stored as structured data and rendered dynamically.</p>
+      <p><strong>This project came from real work.</strong> At Ampoly Plastics in 2025, I designed and tested functional machine parts using CAD software and a 3D printer — solving live industrial challenges with hands-on prototyping.</p>
+      <p>PrintLab exists to document that process — proving that physical and digital skills are not separate disciplines, but deeply connected ones.</p>
+      <a href="#projects" class="btn-primary" style="display:inline-block;margin-top:8px;background:#2a2a2a;color:#fff;padding:13px 28px;border-radius:40px;text-decoration:none;font-size:.84rem;">Explore Projects →</a>
+    </div>
+  </div>
+</section>
+
+<section class="workflow" id="workflow">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">The Process</div>
+    <h2 class="section-title">How every print <em>gets made.</em></h2>
+    <p class="section-lead">Good 3D printing is 80% design and 20% printing. Every project in PrintLab follows the same disciplined workflow — from sketch to final part.</p>
+    <div class="wf-grid">
+      <div class="wf-step">
+        <div class="wf-num">01</div>
+        <h3>Define the Brief</h3>
+        <p>What does the part need to do? What are the load, fit, and material requirements? This stage prevents 90% of print failures.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">02</div>
+        <h3>CAD Modelling</h3>
+        <p>Design in CAD software with precise tolerances — accounting for print shrinkage, layer adhesion, and assembly clearances.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">03</div>
+        <h3>Slice & Configure</h3>
+        <p>Slicer settings — layer height, infill, supports, and orientation — are as important as the design itself. Document everything.</p>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">04</div>
+        <h3>Test & Iterate</h3>
+        <p>First prints rarely fit perfectly. Measure, adjust tolerances, reprint. Iteration is the process, not a sign of failure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">Project Archive</div>
+    <h2 class="section-title">What's been <em>built.</em></h2>
+    <p class="section-lead">Every project is documented with specs, materials, print time, and lessons learned. The data layer is JSON — no backend required.</p>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#e8f0f8,#d0e4f5);">🖨️</div>
+        <div class="proj-body">
+          <div class="proj-meta-row">
+            <span class="proj-tag">Industrial · Functional</span>
+            <span class="proj-status done">Complete</span>
+          </div>
+          <div class="proj-name">Cable Organiser v2</div>
+          <p class="proj-desc">Desktop cable management clip with revised snap-fit tab geometry. Improved retention force over v1 by 40%.</p>
+          <div class="proj-specs">
+            <span class="proj-spec">PLA</span><span class="proj-spec">4hr print</span><span class="proj-spec">0.2mm layers</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#f0f4f8,#e0ecf5);">⚙️</div>
+        <div class="proj-body">
+          <div class="proj-meta-row">
+            <span class="proj-tag">Industrial · Prototype</span>
+            <span class="proj-status wip">Testing</span>
+          </div>
+          <div class="proj-name">Desk Mount Clip</div>
+          <p class="proj-desc">Monitor arm secondary mount for 22mm steel tube. PETG selected for heat resistance near machine vents.</p>
+          <div class="proj-specs">
+            <span class="proj-spec">PETG</span><span class="proj-spec">2.5hr</span><span class="proj-spec">Custom tol.</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#f8f4f0,#f0e8e0);">💎</div>
+        <div class="proj-body">
+          <div class="proj-meta-row">
+            <span class="proj-tag">Decorative · Fashion</span>
+            <span class="proj-status done">Complete</span>
+          </div>
+          <div class="proj-name">Jewellery Display Stand</div>
+          <p class="proj-desc">Modular three-tier display stand for necklaces and rings. Snap-fit assembly — no hardware, no adhesive.</p>
+          <div class="proj-specs">
+            <span class="proj-spec">PLA</span><span class="proj-spec">6hr total</span><span class="proj-spec">Snap-fit</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#e8f5e8,#d8ecd8);">🔧</div>
+        <div class="proj-body">
+          <div class="proj-meta-row">
+            <span class="proj-tag">Industrial · Replacement Part</span>
+            <span class="proj-status done">In Use</span>
+          </div>
+          <div class="proj-name">Machine Guard Bracket</div>
+          <p class="proj-desc">Replacement safety guard bracket for Ampoly floor press. Matches OEM dimensions exactly — printed as emergency replacement in 2025.</p>
+          <div class="proj-specs">
+            <span class="proj-spec">PETG</span><span class="proj-spec">8hr</span><span class="proj-spec">OEM spec</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#f5f0f8,#ede0f5);">📱</div>
+        <div class="proj-body">
+          <div class="proj-meta-row">
+            <span class="proj-tag">Prototype · Research</span>
+            <span class="proj-status wip">Iterating</span>
+          </div>
+          <div class="proj-name">Phone Grip Prototype</div>
+          <p class="proj-desc">Ergonomic rear grip exploring three handle angle variants. Currently on v3 — improving wrist comfort and material flex.</p>
+          <div class="proj-specs">
+            <span class="proj-spec">TPU</span><span class="proj-spec">1.5hr</span><span class="proj-spec">Flexible</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#f8f8f0,#f0f0e0);">🏠</div>
+        <div class="proj-body">
+          <div class="proj-meta-row">
+            <span class="proj-tag">Decorative · Original Design</span>
+            <span class="proj-status done">Complete</span>
+          </div>
+          <div class="proj-name">Geometric Wall Panel</div>
+          <p class="proj-desc">Six interlocking tiles with low-relief geometric pattern. Designed from scratch — no reference file, no template. Original CAD work.</p>
+          <div class="proj-specs">
+            <span class="proj-spec">PLA</span><span class="proj-spec">3hr/tile</span><span class="proj-spec">Original</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="industrial" id="industrial">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">Real-World Application</div>
+    <h2 class="section-title">Built for <em>Ampoly Plastics.</em></h2>
+    <div class="ind-grid">
+      <div>
+        <img src="https://images.unsplash.com/photo-1565087691455-b98c6f2c2e85?w=700&q=80" alt="Industrial 3D Printing" style="width:100%;border-radius:12px;display:block;"/>
+      </div>
+      <div class="ind-points">
+        <p style="font-size:.92rem;line-height:1.85;color:#5a7a8a;margin-bottom:28px;">In 2025, I applied CAD and 3D printing to real industrial challenges at Ampoly Plastics — designing and testing functional machine parts on a live factory floor. This is not a hobby project. These parts are in active use.</p>
+        <div class="ind-point">
+          <div class="ind-icon">⚙️</div>
+          <div>
+            <h4>OEM-Spec Replacement Parts</h4>
+            <p>Designed replacement components to match original machine specifications — faster and cheaper than ordering replacements.</p>
+          </div>
+        </div>
+        <div class="ind-point">
+          <div class="ind-icon">📐</div>
+          <div>
+            <h4>Custom Tooling & Fixtures</h4>
+            <p>Created custom jigs and fixtures to improve production line efficiency and worker safety.</p>
+          </div>
+        </div>
+        <div class="ind-point">
+          <div class="ind-icon">🔄</div>
+          <div>
+            <h4>Rapid Iteration in Production</h4>
+            <p>When a part didn't fit, I redesigned and reprinted within hours — not weeks. That's the real advantage of in-house 3D printing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Made with 🖨️ by <strong>Tasneem Mahomed</strong> &nbsp;·&nbsp; Fine Tuned Logic &nbsp;·&nbsp; Systems That Shape Your Life</p>
+  <p style="margin-top:6px;font-size:.72rem;">HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JavaScript &nbsp;·&nbsp; JSON Data Layer &nbsp;·&nbsp; Based on real industrial work · Ampoly Plastics 2025</p>
+</footer>
+
+</body>
+</html>

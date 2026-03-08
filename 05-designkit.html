@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DesignKit — Brand Identity Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; font-weight:300; color:#2a2a2a; background:#fff; }
+
+nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,.96); backdrop-filter:blur(8px);
+  border-bottom:1px solid #f0e8f5; padding:0 48px;
+  display:flex; align-items:center; justify-content:space-between; height:60px;
+}
+.nav-brand { font-family:'Playfair Display',serif; font-size:1.2rem; color:#2a2a2a; }
+.nav-brand span { color:#8a5a9a; font-style:italic; }
+.nav-links { display:flex; gap:32px; }
+.nav-links a { font-size:.82rem; color:#888; text-decoration:none; }
+.nav-links a:hover { color:#2a2a2a; }
+.nav-cta { background:#2a2a2a; color:#fff; padding:8px 20px; font-size:.78rem; text-decoration:none; border-radius:40px; }
+
+/* HERO */
+.hero {
+  min-height:92vh;
+  background:linear-gradient(135deg, #faf6ff 0%, #f5eeff 50%, #ede0ff 100%);
+  display:flex; align-items:center; padding:80px 48px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background:url('https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1400&q=60') center/cover;
+  opacity:.06;
+}
+.hero-inner { position:relative; max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; width:100%; }
+.hero-tag { display:inline-block; font-size:.72rem; letter-spacing:3px; text-transform:uppercase; color:#8a5a9a; border:1px solid #d8b8e8; padding:6px 18px; border-radius:40px; margin-bottom:28px; }
+.hero h1 { font-family:'Playfair Display',serif; font-size:3.6rem; font-weight:400; line-height:1.1; color:#2a2a2a; margin-bottom:20px; }
+.hero h1 em { font-style:italic; color:#8a5a9a; }
+.hero-desc { font-size:.95rem; line-height:1.8; color:#666; margin-bottom:32px; }
+.hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary { background:#2a2a2a; color:#fff; padding:14px 32px; border-radius:40px; text-decoration:none; font-size:.88rem; }
+.btn-ghost { background:transparent; color:#2a2a2a; padding:14px 32px; border-radius:40px; text-decoration:none; font-size:.88rem; border:1.5px solid #ccc; }
+
+/* palette preview */
+.palette-preview {
+  background:#fff; border-radius:16px; padding:28px; border:1px solid #e8d8f5; box-shadow:0 4px 40px rgba(138,90,154,.08);
+}
+.pal-title { font-size:.68rem; letter-spacing:3px; text-transform:uppercase; color:#bbb; margin-bottom:16px; }
+.pal-swatches { display:flex; gap:0; border-radius:8px; overflow:hidden; margin-bottom:20px; }
+.pal-sw { flex:1; height:56px; display:flex; align-items:flex-end; padding:6px; }
+.pal-sw span { font-size:.52rem; color:rgba(255,255,255,.6); }
+.pal-type { border-top:1px solid #f0e8f5; padding-top:18px; }
+.pal-type-h { font-family:'Playfair Display',serif; font-size:1.3rem; color:#2a2a2a; margin-bottom:4px; }
+.pal-type-b { font-size:.78rem; color:#888; margin-bottom:4px; }
+.pal-type-m { font-family:monospace; font-size:.68rem; color:#bbb; letter-spacing:1px; }
+.pal-btns { display:flex; gap:10px; margin-top:18px; }
+.pal-btn { flex:1; padding:10px; border-radius:6px; font-size:.72rem; text-align:center; cursor:pointer; }
+.pal-btn.dark { background:#2a2a2a; color:#fff; border:none; }
+.pal-btn.light { background:transparent; color:#888; border:1.5px solid #e0d8e8; }
+
+/* sections */
+section { padding:96px 48px; }
+.section-tag { display:inline-block; font-size:.68rem; letter-spacing:3px; text-transform:uppercase; color:#888; margin-bottom:14px; }
+.section-title { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:400; color:#2a2a2a; margin-bottom:16px; line-height:1.2; }
+.section-title em { font-style:italic; color:#8a5a9a; }
+.section-lead { font-size:.95rem; line-height:1.8; color:#666; max-width:560px; }
+
+/* features */
+.features { background:#faf6ff; }
+.feat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:52px; }
+.feat-card { background:#fff; border-radius:12px; padding:32px; border:1px solid #ede0ff; }
+.feat-icon { font-size:2rem; margin-bottom:16px; }
+.feat-card h3 { font-family:'Playfair Display',serif; font-size:1.1rem; color:#2a2a2a; margin-bottom:10px; }
+.feat-card p { font-size:.84rem; line-height:1.7; color:#888; }
+
+/* HOW IT WORKS */
+.how { background:#fff; }
+.how-inner { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; max-width:1100px; margin:0 auto; }
+.how-image img { width:100%; border-radius:12px; display:block; }
+.how-image { position:relative; }
+.how-badge { position:absolute; top:-16px; right:-16px; background:#8a5a9a; color:#fff; font-size:.68rem; letter-spacing:2px; text-transform:uppercase; padding:12px 20px; border-radius:8px; }
+.how-steps { }
+.how-step { display:flex; gap:20px; margin-bottom:28px; }
+.how-step-num { font-family:'Playfair Display',serif; font-size:2rem; color:#e0d0ee; flex-shrink:0; line-height:1; }
+.how-step-text h4 { font-family:'Playfair Display',serif; font-size:1rem; color:#2a2a2a; margin-bottom:6px; }
+.how-step-text p { font-size:.84rem; line-height:1.65; color:#888; }
+
+/* GENERATOR */
+.generator { background:#2a1a3a; padding:96px 48px; }
+.generator .section-tag { color:#b890cc; }
+.generator .section-title { color:#f5eeff; }
+.gen-inner { display:grid; grid-template-columns:1fr 1fr; gap:64px; max-width:1100px; margin:52px auto 0; align-items:start; }
+.gen-controls { }
+.gen-label { font-size:.68rem; letter-spacing:3px; text-transform:uppercase; color:#8a6a9a; margin-bottom:12px; margin-top:28px; display:block; }
+.gen-label:first-child { margin-top:0; }
+.gen-select {
+  width:100%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.15);
+  border-radius:8px; padding:12px 16px; font-family:'Inter',sans-serif; font-size:.84rem;
+  color:#ccc; appearance:none; outline:none; cursor:pointer;
+}
+.gen-input {
+  width:100%; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.15);
+  border-radius:8px; padding:12px 16px; font-family:'Inter',sans-serif; font-size:.84rem;
+  color:#ccc; outline:none; margin-bottom:10px;
+}
+.gen-input::placeholder { color:rgba(255,255,255,.2); }
+.gen-export { width:100%; background:#fff; color:#2a1a3a; border:none; padding:14px; border-radius:40px; font-size:.88rem; cursor:pointer; margin-top:20px; font-weight:500; }
+.gen-preview { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:32px; }
+.gp-brand { font-family:'Playfair Display',serif; font-size:1.6rem; color:#f5eeff; margin-bottom:8px; }
+.gp-tagline { font-size:.72rem; letter-spacing:2px; text-transform:uppercase; color:#8a6a9a; margin-bottom:24px; }
+.gp-swatches { display:flex; gap:0; border-radius:8px; overflow:hidden; margin-bottom:24px; height:44px; }
+.gp-sw { flex:1; }
+.gp-rule { border:none; border-top:1px solid rgba(255,255,255,.08); margin-bottom:20px; }
+.gp-type-h { font-family:'Playfair Display',serif; font-size:1.2rem; color:#e0d0ee; margin-bottom:6px; }
+.gp-type-b { font-size:.8rem; color:#8a6a9a; margin-bottom:6px; }
+.gp-type-m { font-family:monospace; font-size:.7rem; color:#5a4a6a; letter-spacing:1px; }
+
+footer { background:#1a0a2a; color:#4a3a5a; padding:32px 48px; text-align:center; font-size:.8rem; line-height:1.8; }
+footer strong { color:#7a5a8a; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Design<span>Kit</span></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#generator">Generator</a>
+  </div>
+  <a href="#generator" class="nav-cta">Build Your Brand →</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Fashion × Tech Brand Tool</div>
+      <h1>Your brand,<br/><em>beautifully built.</em></h1>
+      <p class="hero-desc">Generate cohesive colour palettes, typography pairings, and visual identity kits. Export everything you need to launch a brand — in minutes, not weeks.</p>
+      <div class="hero-btns">
+        <a href="#generator" class="btn-primary">Start Generating →</a>
+        <a href="#how" class="btn-ghost">See How It Works</a>
+      </div>
+    </div>
+    <div class="palette-preview">
+      <div class="pal-title">Generated Brand Kit</div>
+      <div class="pal-swatches">
+        <div class="pal-sw" style="background:#1a1a2e"><span>#1a1a2e</span></div>
+        <div class="pal-sw" style="background:#4a3a6a"><span>#4a3a6a</span></div>
+        <div class="pal-sw" style="background:#8a5a9a"><span>#8a5a9a</span></div>
+        <div class="pal-sw" style="background:#d8b8e8"><span>#d8b8e8</span></div>
+        <div class="pal-sw" style="background:#faf6ff"><span>#faf6ff</span></div>
+      </div>
+      <div class="pal-type">
+        <div class="pal-type-h">Brand Heading — Playfair Display</div>
+        <div class="pal-type-b">Subheading · Inter Light · weight 300</div>
+        <div class="pal-type-m">LABEL · CAPS · MONO SPACING</div>
+      </div>
+      <div class="pal-btns">
+        <div class="pal-btn dark">↓ Export Kit</div>
+        <div class="pal-btn light">Regenerate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="features" id="features">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">What DesignKit Does</div>
+    <h2 class="section-title">Creativity meets <em>logic.</em></h2>
+    <p class="section-lead">Born from a fashion design background and built with code — DesignKit applies colour theory and typographic principles automatically so your brand looks considered, not generated.</p>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">🎨</div>
+        <h3>Colour Palette Generator</h3>
+        <p>Uses colour theory logic — complementary, analogous, and triadic relationships — to generate palettes that are visually harmonious, not just randomly picked.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">✍️</div>
+        <h3>Typography Pairing</h3>
+        <p>Curated font pairings that combine a display serif with a readable sans-serif and a monospace label font — the three-font system used by professional brand designers.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📦</div>
+        <h3>Exportable Brand Kit</h3>
+        <p>Export your complete brand identity as a PDF, CSS variables file, or JSON token set — ready to drop into your project, Figma, or hand to a developer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="how-image">
+      <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=700&q=80" alt="Design process"/>
+      <div class="how-badge">Canvas API Powered</div>
+    </div>
+    <div class="how-steps">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title">Three steps to a <em>complete brand.</em></h2>
+      <div class="how-step">
+        <div class="how-step-num">01</div>
+        <div class="how-step-text">
+          <h4>Enter your brand details</h4>
+          <p>Your brand name, tagline, and industry. DesignKit uses these as input parameters for the generation algorithm.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <div class="how-step-text">
+          <h4>Generate and refine</h4>
+          <p>The Canvas API renders your brand visually in real time. Regenerate as many times as you like — each result is unique.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <div class="how-step-text">
+          <h4>Export your kit</h4>
+          <p>Download your complete brand kit as a PDF, a CSS file with variables, or a JSON token set ready for design tools.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="generator" id="generator">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">Brand Generator</div>
+    <h2 class="section-title">Build your <em>identity.</em></h2>
+    <div class="gen-inner">
+      <div class="gen-controls">
+        <span class="gen-label">Brand Name</span>
+        <input class="gen-input" placeholder="Enter your brand name…" value="Fine Tuned Logic"/>
+        <span class="gen-label">Tagline</span>
+        <input class="gen-input" placeholder="Your brand tagline…" value="Systems That Shape Your Life"/>
+        <span class="gen-label">Colour Mood</span>
+        <select class="gen-select">
+          <option>Deep &amp; Minimal — Monochrome</option>
+          <option>Warm &amp; Earthy — Terra cotta tones</option>
+          <option>Soft &amp; Dreamy — Muted pastels</option>
+          <option>Bold &amp; Editorial — High contrast</option>
+        </select>
+        <span class="gen-label">Typography Style</span>
+        <select class="gen-select">
+          <option>Editorial — Serif + Mono</option>
+          <option>Modern — Sans + Sans</option>
+          <option>Classic — Serif + Serif</option>
+          <option>Technical — Mono + Sans</option>
+        </select>
+        <button class="gen-export">↓ Export Brand Kit</button>
+      </div>
+      <div class="gen-preview">
+        <div class="gp-brand">Fine Tuned Logic</div>
+        <div class="gp-tagline">Systems That Shape Your Life</div>
+        <div class="gp-swatches">
+          <div class="gp-sw" style="background:#0e0e0e;"></div>
+          <div class="gp-sw" style="background:#2a2a2a;"></div>
+          <div class="gp-sw" style="background:#666;"></div>
+          <div class="gp-sw" style="background:#ede8e0;"></div>
+          <div class="gp-sw" style="background:#f5f5f3;"></div>
+        </div>
+        <hr class="gp-rule"/>
+        <div class="gp-type-h">Display Heading — Playfair Display</div>
+        <div class="gp-type-b">Body Copy · Inter Light · 16px · line-height 1.7</div>
+        <div class="gp-type-m">LABEL · CAPS · TRACKING · MONO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Made with 🎨 by <strong>Tasneem Mahomed</strong> &nbsp;·&nbsp; Fine Tuned Logic &nbsp;·&nbsp; Systems That Shape Your Life</p>
+  <p style="margin-top:6px;font-size:.72rem;">HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JavaScript &nbsp;·&nbsp; Canvas API &nbsp;·&nbsp; Fashion × Tech</p>
+</footer>
+
+</body>
+</html>
